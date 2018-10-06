@@ -1,0 +1,4 @@
+harfbuzz
+pcre2
+double-conversion
+openssl

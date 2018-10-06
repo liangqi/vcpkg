@@ -1,0 +1,61 @@
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  steps:
+  - script: |
+      sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+      sudo apt-get update -y
+      sudo apt-get install g++-7 -y
+      ./bootstrap-vcpkg.sh
+      ./vcpkg install $(cat qt-packages-linux.txt)
+      ./vcpkg export --output=linux --zip $(cat qt-packages-linux.txt)
+    displayName: 'make'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: 'linux.zip'
+- job: macOS
+  pool:
+    vmImage: 'macOS-10.13'
+  steps:
+  - script: |
+      brew install gcc6
+      ./bootstrap-vcpkg.sh
+      ./vcpkg install $(cat qt-packages-macos.txt)
+      ./vcpkg export --output=macos --zip $(cat qt-packages-macos.txt)
+    displayName: 'make'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: 'macos.zip'
+- job: Windows
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - powershell: |
+      ./bootstrap-vcpkg.bat
+      $env:VCPKG_DEFAULT_TRIPLET = "qt-x86-windows-static"
+      ./vcpkg install $(cat qt-packages-windows.txt)
+      ./vcpkg export --output=windows --zip $(cat qt-packages-windows.txt)
+    displayName: 'make'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: 'windows.zip'
+- job: Android
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  steps:
+  - script: |
+      sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+      sudo apt-get update -y
+      sudo apt-get install g++-7 -y
+      sudo apt-get install ragel
+      ./bootstrap-vcpkg.sh
+      export VCPKG_DEFAULT_TRIPLET="arm-android"
+      export ANDROID_NDK_HOME=$ANDROID_ROOT_SDK/ndk-bundle
+      ./vcpkg install $(cat qt-packages-android.txt) || cat buildtrees/harfbuzz/install-arm-android-dbg-out.log
+      ./vcpkg export --output=android-arm --zip $(cat qt-packages-android.txt)
+    displayName: 'make'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: 'android-arm.zip'
+
