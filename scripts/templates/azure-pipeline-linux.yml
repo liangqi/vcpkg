@@ -1,0 +1,17 @@
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  steps:
+  - script: |
+      sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+      sudo apt-get update -y
+      sudo apt-get install g++-7 -y
+      ./bootstrap-vcpkg.sh
+      ./vcpkg install $(cat ${{ parameters.packageListsFile }} )
+      ./vcpkg export --output=linux --zip $(cat $${ parameters.packageListsFile }} )
+    displayName: 'make'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: 'linux.zip'
+
