@@ -1,5 +1,5 @@
 jobs:
-- job: Windows
+- job: $${ parameters.triplet }}
   pool:
     vmImage: 'vs2017-win2016'
   steps:
@@ -7,7 +7,7 @@ jobs:
       ./bootstrap-vcpkg.bat
       $env:VCPKG_DEFAULT_TRIPLET = "${{ parameters.triplet }}"
       ./vcpkg install $(cat ${{ parameters.packageListsFile }} )
-      ./vcpkg export --output=windows --zip $(cat ${{ parameters.packageListsFile }} )
+      ./vcpkg export --output=${{ parameters.triplet }} --zip $(cat ${{ parameters.packageListsFile }} )
     displayName: 'make'
   - task: PublishBuildArtifacts@1
     inputs:

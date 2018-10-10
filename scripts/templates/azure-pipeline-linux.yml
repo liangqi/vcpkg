@@ -1,5 +1,5 @@
 jobs:
-- job: Linux
+- job: x64-linux
   pool:
     vmImage: 'Ubuntu 16.04'
   steps:
@@ -13,5 +13,5 @@ jobs:
     displayName: 'make'
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: 'linux.zip'
+      pathtoPublish: 'x64-linux.zip'
 

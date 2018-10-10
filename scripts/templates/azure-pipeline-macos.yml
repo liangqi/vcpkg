@@ -1,5 +1,5 @@
 jobs:
-- job: macOS
+- job: x64-osx
   pool:
     vmImage: 'macOS-10.13'
   steps:
@@ -7,8 +7,8 @@ jobs:
       brew install gcc6
       ./bootstrap-vcpkg.sh
       ./vcpkg install $(cat ${{ parameters.packageListsFile }} )
-      ./vcpkg export --output=macos --zip $(cat ${{ parameters.packageListsFile }} )
+      ./vcpkg export --output=x64-osx --zip $(cat ${{ parameters.packageListsFile }} )
     displayName: 'make'
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: 'macos.zip'
+      pathtoPublish: 'x64-osx.zip'
