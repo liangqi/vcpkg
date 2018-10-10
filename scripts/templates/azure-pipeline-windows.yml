@@ -5,11 +5,11 @@ jobs:
   steps:
   - powershell: |
       ./bootstrap-vcpkg.bat
-      $env:VCPKG_DEFAULT_TRIPLET = "x86-windows"
+      $env:VCPKG_DEFAULT_TRIPLET = "${{ parameters.triplet }}"
       ./vcpkg install $(cat ${{ parameters.packageListsFile }} )
       ./vcpkg export --output=windows --zip $(cat ${{ parameters.packageListsFile }} )
     displayName: 'make'
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: 'windows.zip'
+      pathtoPublish: '${{ parameters.triplet }}.zip'
 
