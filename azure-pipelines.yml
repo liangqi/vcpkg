@@ -2,14 +2,16 @@ jobs:
 - template: scripts/templates/azure-pipeline-linux.yml
   parameters:
       packageListsFile: qt-packages-linux.txt
-#- template: scripts/templates/azure-pipeline-windows.yml
-#  parameters:
-#      triplet: x86-windows
-#      packageListsFile: qt-packages-windows.txt
-#- template: scripts/templates/azure-pipeline-windows.yml
-#  parameters:
-#      triplet: x64-windows
-#      packageListsFile: qt-packages-windows.txt
+- template: scripts/templates/azure-pipeline-windows.yml
+  parameters:
+      triplet: x86-windows
+      jobName: x86_windows
+      packageListsFile: qt-packages-windows.txt
+- template: scripts/templates/azure-pipeline-windows.yml
+  parameters:
+      triplet: x64-windows
+      jobName: x64_windows
+      packageListsFile: qt-packages-windows.txt
 #- template: scripts/templates/azure-pipeline-macos.yml
 #  parameters:
 #      packageListsFile: qt-packages-macos.txt

@@ -1,5 +1,5 @@
 jobs:
-- job: x64-linux
+- job: x64_linux
   pool:
     vmImage: 'Ubuntu 16.04'
   steps:
