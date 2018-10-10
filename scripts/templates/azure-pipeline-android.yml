@@ -8,11 +8,11 @@
       sudo apt-get install g++-7 -y
       sudo apt-get install ragel
       ./bootstrap-vcpkg.sh
-      export VCPKG_DEFAULT_TRIPLET="arm-android"
+      export VCPKG_DEFAULT_TRIPLET="${{ parameters.triplet }}"
       export ANDROID_NDK_HOME=$ANDROID_ROOT_SDK/ndk-bundle
       ./vcpkg install $(cat ${{ parameters.packageListsFile }} )
-      ./vcpkg export --output=android-arm --zip $(cat ${{ parameters.packageListsFile }} )
+      ./vcpkg export --output=${{ parameters.triplet }} --zip $(cat ${{ parameters.packageListsFile }} )
     displayName: 'make'
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: 'android-arm.zip'
+      pathtoPublish: '${{ parameters.triplet }}.zip'

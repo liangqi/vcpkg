@@ -10,4 +10,5 @@ jobs:
       packageListsFile: qt-packages-macos.txt
 - template: scripts/templates/azure-pipeline-android.yml
   parameters:
+      triplet: arm-android
       packageListsFile: qt-packages-android.txt
