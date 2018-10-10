@@ -1,0 +1,14 @@
+- job: Windows
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - powershell: |
+      ./bootstrap-vcpkg.bat
+      $env:VCPKG_DEFAULT_TRIPLET = "x86-windows"
+      ./vcpkg install $(cat ${{ parameters.packageListsFile }} )
+      ./vcpkg export --output=windows --zip $(cat ${{ parameters.packageListsFile }} )
+    displayName: 'make'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: 'windows.zip'
+
