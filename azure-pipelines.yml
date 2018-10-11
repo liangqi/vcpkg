@@ -19,7 +19,7 @@ jobs:
       packageListsFile: qt-packages-windows.txt
 - template: scripts/templates/azure-pipeline-windows.yml
   parameters:
-      triplet: 86-uwp
+      triplet: x86-uwp
       jobName: x86_uwp
       packageListsFile: qt-packages-windows.txt
 #- template: scripts/templates/azure-pipeline-macos.yml
