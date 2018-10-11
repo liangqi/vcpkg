@@ -10,9 +10,12 @@ jobs:
   - powershell: |
       ./bootstrap-vcpkg.bat
       $env:VCPKG_DEFAULT_TRIPLET = "${{ parameters.triplet }}"
-      ./vcpkg install $(cat ${{ parameters.packageListsFile }} )
-      ./vcpkg export --output=${{ parameters.triplet }} --zip $(cat ${{ parameters.packageListsFile }} )
+      ./vcpkg install $(cat $env:packageListsFile)
+      ./vcpkg export --output=$env:VCPKG_DEFAULT_TRIPLET --zip $(cat $env:packageListsFile)
     displayName: 'make'
+    environment:
+        VCPKG_DEFAULT_TRIPLET: ${{ parameters.triplet }}
+        packageListsFile: ${{ parameters.packageListsFile }}
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '${{ parameters.triplet }}.zip'

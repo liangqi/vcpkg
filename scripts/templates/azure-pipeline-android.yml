@@ -13,11 +13,14 @@ jobs:
       sudo apt-get install g++-7 -y
       sudo apt-get install ragel
       ./bootstrap-vcpkg.sh
-      export VCPKG_DEFAULT_TRIPLET="${{ parameters.triplet }}"
+      export VCPKG_DEFAULT_TRIPLET="$triplet"
       export ANDROID_NDK_HOME=$ANDROID_ROOT_SDK/ndk-bundle
-      ./vcpkg install $(cat ${{ parameters.packageListsFile }} )
-      ./vcpkg export --output=${{ parameters.triplet }} --zip $(cat ${{ parameters.packageListsFile }} )
+      ./vcpkg install $(cat $packageListsFile)
+      ./vcpkg export --output=${{ parameters.triplet }} --zip $(cat $packageListsFile)
     displayName: 'make'
+    environment:
+        triplet: ${{ parameters.triplet }}
+        packageListsFile: ${{ parameters.packageListsFile }}
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '${{ parameters.triplet }}.zip'

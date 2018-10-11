@@ -10,9 +10,11 @@ jobs:
       sudo apt-get update -y
       sudo apt-get install g++-7 -y
       ./bootstrap-vcpkg.sh
-      ./vcpkg install $(cat ${{ parameters.packageListsFile }} )
-      ./vcpkg export --output=linux --zip $(cat $${ parameters.packageListsFile }} )
+      ./vcpkg install $(cat $packageListsFile)
+      ./vcpkg export --output=linux --zip $(cat $packageListsFile)
     displayName: 'make'
+    environment:
+        packageListsFile: ${{ parameters.packageListsFile }}
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: 'x64-linux.zip'

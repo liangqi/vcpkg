@@ -8,9 +8,11 @@ jobs:
   - script: |
       brew install gcc6
       ./bootstrap-vcpkg.sh
-      ./vcpkg install $(cat ${{ parameters.packageListsFile }} )
-      ./vcpkg export --output=x64-osx --zip $(cat ${{ parameters.packageListsFile }} )
+      ./vcpkg install $(cat $packageListsFile)
+      ./vcpkg export --output=x64-osx --zip $(cat $packageListsFile)
     displayName: 'make'
+    environment:
+        packageListsFile: ${{ parameters.packageListsFile }}
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: 'x64-osx.zip'
