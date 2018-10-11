@@ -1,8 +1,9 @@
 parameters:
     triplet: ''
+    jobName: ''
     packageListsFile: ''
 jobs:
-- job: ${{ parameters.triplet }}
+- job: ${{ parameters.jobName }}
   pool:
     vmImage: 'Ubuntu 16.04'
   steps:
