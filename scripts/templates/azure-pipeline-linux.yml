@@ -4,6 +4,8 @@ jobs:
 - job: x64_linux
   pool:
     vmImage: 'Ubuntu 16.04'
+  variables:
+    packageListsFile: ${{ parameters.packageListsFile }}
   steps:
   - script: |
       sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
@@ -13,8 +15,6 @@ jobs:
       ./vcpkg install $(cat $packageListsFile)
       ./vcpkg export --output=linux --zip $(cat $packageListsFile)
     displayName: 'make'
-    environment:
-        packageListsFile: ${{ parameters.packageListsFile }}
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: 'x64-linux.zip'

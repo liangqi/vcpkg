@@ -6,6 +6,9 @@ jobs:
 - job: ${{ parameters.jobName }}
   pool:
     vmImage: 'Ubuntu 16.04'
+  variables:
+    triplet: ${{ parameters.triplet }}
+    packageListsFile: ${{ parameters.packageListsFile }}
   steps:
   - script: |
       sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
@@ -18,9 +21,6 @@ jobs:
       ./vcpkg install $(cat $packageListsFile)
       ./vcpkg export --output=${{ parameters.triplet }} --zip $(cat $packageListsFile)
     displayName: 'make'
-    environment:
-        triplet: ${{ parameters.triplet }}
-        packageListsFile: ${{ parameters.packageListsFile }}
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '${{ parameters.triplet }}.zip'

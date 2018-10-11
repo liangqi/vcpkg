@@ -6,6 +6,9 @@ jobs:
 - job: ${{ parameters.jobName }}
   pool:
     vmImage: 'vs2017-win2016'
+  variables:
+    VCPKG_DEFAULT_TRIPLET: ${{ parameters.triplet }}
+    packageListsFile: ${{ parameters.packageListsFile }}
   steps:
   - powershell: |
       ./bootstrap-vcpkg.bat
@@ -13,9 +16,6 @@ jobs:
       ./vcpkg install $(cat $env:packageListsFile)
       ./vcpkg export --output=$env:VCPKG_DEFAULT_TRIPLET --zip $(cat $env:packageListsFile)
     displayName: 'make'
-    environment:
-        VCPKG_DEFAULT_TRIPLET: ${{ parameters.triplet }}
-        packageListsFile: ${{ parameters.packageListsFile }}
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '${{ parameters.triplet }}.zip'
