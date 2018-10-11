@@ -16,12 +16,12 @@ jobs:
   parameters:
       triplet: arm-uwp
       jobName: arm_uwp
-      packageListsFile: qt-packages-windows.txt
+      packageListsFile: qt-packages-uwp.txt
 - template: scripts/templates/azure-pipeline-windows.yml
   parameters:
       triplet: x86-uwp
       jobName: x86_uwp
-      packageListsFile: qt-packages-windows.txt
+      packageListsFile: qt-packages-uwp.txt
 #- template: scripts/templates/azure-pipeline-macos.yml
 #  parameters:
 #      packageListsFile: qt-packages-macos.txt
@@ -30,8 +30,8 @@ jobs:
 #      jobName: arm_android
 #      triplet: arm-android
 #      packageListsFile: qt-packages-android.txt
-#- template: scripts/templates/azure-pipeline-macos.yml
-#  parameters:
-#      jobName: ios
-#      triplet: arm64-ios
-#      packageListsFile: qt-packages-macos.txt
+- template: scripts/templates/azure-pipeline-macos.yml
+  parameters:
+      jobName: ios
+      triplet: arm64-ios
+      packageListsFile: qt-packages-macos.txt
