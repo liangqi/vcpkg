@@ -1,3 +1,5 @@
+parameters:
+    packageListsFile: ''
 jobs:
 - job: x64_linux
   pool:

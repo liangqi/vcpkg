@@ -1,3 +1,7 @@
+parameters:
+    jobName: ''
+    packageListsFile: ''
+    triplet: ''
 jobs:
 - job: ${{ parameters.jobName }}
   pool:
