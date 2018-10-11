@@ -12,7 +12,6 @@ jobs:
   steps:
   - powershell: |
       ./bootstrap-vcpkg.bat
-      $env:VCPKG_DEFAULT_TRIPLET = "${{ parameters.triplet }}"
       ./vcpkg install $(cat $env:packageListsFile)
       ./vcpkg export --output=$env:VCPKG_DEFAULT_TRIPLET --zip $(cat $env:packageListsFile)
     displayName: 'make'
