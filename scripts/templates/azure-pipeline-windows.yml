@@ -17,5 +17,5 @@ jobs:
     displayName: 'make'
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: '${{ parameters.triplet }}.zip'
+      pathtoPublish: ${{ format('{}.zip', parameters.triplet) }}
 
