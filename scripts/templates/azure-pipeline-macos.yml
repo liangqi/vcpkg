@@ -1,5 +1,7 @@
+parameters:
+    packageListsFile: ''
 jobs:
-- job: x64-osx
+- job: x64_osx
   pool:
     vmImage: 'macOS-10.13'
   steps:

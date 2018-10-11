@@ -12,10 +12,10 @@ jobs:
       triplet: x64-windows
       jobName: x64_windows
       packageListsFile: qt-packages-windows.txt
-#- template: scripts/templates/azure-pipeline-macos.yml
-#  parameters:
-#      packageListsFile: qt-packages-macos.txt
-#- template: scripts/templates/azure-pipeline-android.yml
-#  parameters:
-#      triplet: arm-android
-#      packageListsFile: qt-packages-android.txt
+- template: scripts/templates/azure-pipeline-macos.yml
+  parameters:
+      packageListsFile: qt-packages-macos.txt
+- template: scripts/templates/azure-pipeline-android.yml
+  parameters:
+      triplet: arm-android
+      packageListsFile: qt-packages-android.txt
