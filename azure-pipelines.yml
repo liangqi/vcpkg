@@ -1,22 +1,27 @@
 jobs:
-- template: scripts/templates/azure-pipeline-linux.yml
-  parameters:
-      packageListsFile: qt-packages-linux.txt
-- template: scripts/templates/azure-pipeline-windows.yml
-  parameters:
-      triplet: x86-windows
-      jobName: x86_windows
-      packageListsFile: qt-packages-windows.txt
-- template: scripts/templates/azure-pipeline-windows.yml
-  parameters:
-      triplet: x64-windows
-      jobName: x64_windows
-      packageListsFile: qt-packages-windows.txt
+#- template: scripts/templates/azure-pipeline-linux.yml
+#  parameters:
+#      packageListsFile: qt-packages-linux.txt
+#- template: scripts/templates/azure-pipeline-windows.yml
+#  parameters:
+#      triplet: x86-windows
+#      jobName: x86_windows
+#      packageListsFile: qt-packages-windows.txt
+#- template: scripts/templates/azure-pipeline-windows.yml
+#  parameters:
+#      triplet: x64-windows
+#      jobName: x64_windows
+#      packageListsFile: qt-packages-windows.txt
+#- template: scripts/templates/azure-pipeline-macos.yml
+#  parameters:
+#      packageListsFile: qt-packages-macos.txt
+#- template: scripts/templates/azure-pipeline-android.yml
+#  parameters:
+#      jobName: arm_android
+#      triplet: arm-android
+#      packageListsFile: qt-packages-android.txt
 - template: scripts/templates/azure-pipeline-macos.yml
   parameters:
+      jobName: ios
+      triplet: arm64-ios
       packageListsFile: qt-packages-macos.txt
-- template: scripts/templates/azure-pipeline-android.yml
-  parameters:
-      jobName: arm_android
-      triplet: arm-android
-      packageListsFile: qt-packages-android.txt

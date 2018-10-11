@@ -1,18 +1,21 @@
 parameters:
     packageListsFile: ''
+    triplet: 'x64-osx'
+    jobName: 'x64_osx'
 jobs:
-- job: x64_osx
+- job: ${{ parameters.jobName }}
   pool:
     vmImage: 'macOS-10.13'
   variables:
     packageListsFile: ${{ parameters.packageListsFile }}
+    VCPKG_DEFAULT_TRIPLET: ${{ parameters.triplet }}
   steps:
   - script: |
       brew install gcc6
       ./bootstrap-vcpkg.sh
       ./vcpkg install $(cat $packageListsFile)
-      ./vcpkg export --output=x64-osx --zip $(cat $packageListsFile)
+      ./vcpkg export --output=$VCPKG_DEFAULT_TRIPLET --zip $(cat $packageListsFile)
     displayName: 'make'
   - task: PublishBuildArtifacts@1
     inputs:
-      pathtoPublish: 'x64-osx.zip'
+      pathtoPublish: '${{ parameters.triplet }}.zip'
